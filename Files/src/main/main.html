@@ -1,9 +1,23 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Points</title>
-    </head>
-    <body>
-        <p>Points</p>
-    </body>
+
+<head>
+    <title>Points</title>
+</head>
+
+<body>
+    <p>Points</p>
+</body>
+<script>
+    function rngBetaDistr() {
+        for (var i  = 0;i<1000;i++) {
+            var unif = Math.random();//uniform distribution
+            var beta = Math.pow(Math.sin(unif * Math.PI / 2),2);
+            beta_left = (beta < 0.5) ? 2 * beta : 2 * (1 - beta);//skewing beta towards leftside
+            console.log(beta_left);
+        }
+    }
+    window.onload = rngBetaDistr
+</script>
+
 </html>

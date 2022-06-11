@@ -17,13 +17,20 @@
 </body>
 <script>
     var ptsThun = 0;
+    var ptsWam = 0;
+    var ptsPuk = 0;
+    var ptsHor = 0;
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d");
     window.onload = draw();
+
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.font = "30px Comic Sans";
         ctx.fillText(ptsThun, canvas.height * (1 / 4), canvas.width * (1 / 5));
+        ctx.fillText(ptsWam, canvas.height * (2 / 4), canvas.width * (1 / 5));
+        ctx.fillText(ptsPuk, canvas.height * (3 / 4), canvas.width * (1 / 5));
+        ctx.fillText(ptsHor, canvas.height * (4 / 4), canvas.width * (1 / 5));
     }
 
     function addPoints(pts) {
@@ -40,10 +47,22 @@
     }
 
     var intervalId = setInterval(function () {
-       ptsThun += (rngBetaDistr()*10);
-       ptsThun = Math.floor(ptsThun);
-       draw();
-    }, 5000);
+        var rng = Math.floor(Math.random() * 4);//int value between 0-3
+        switch (rng) {
+            case 0:
+                ptsThun += Math.floor((rngBetaDistr() * 10));
+                break;
+            case 1:ptsWam += Math.floor((rngBetaDistr() * 10));
+                break;
+            case 2:ptsHor += Math.floor((rngBetaDistr() * 10));
+                break;
+            case 3:ptsPuk += Math.floor((rngBetaDistr() * 10));
+                break;
+            default:
+        }
+        
+        draw();
+    }, 500);
 </script>
 
 </html>

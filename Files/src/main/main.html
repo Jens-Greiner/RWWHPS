@@ -7,8 +7,9 @@
 </head>
 
 <body>
+    <audio src="Files/src/sound/288.ogg"></audio>
     <p>Points</p>
-    <canvas id="myCanvas" width="1200" height="800" style="border:1px solid #ca2c2c;">
+    <canvas id="myCanvas" width="1200" height="800" style="border:1px solid #ca2c2c;">        
     </canvas>
     <br>
     Thunderbird:
@@ -23,7 +24,7 @@
     <button type="button" id="pfive" onclick="addPoints(-10,1)">-10</button>
     <button type="button" id="pfive" onclick="addPoints(-5,1)">-5</button>
     <br>
-    Pukwick:
+    Pukwidge:
     <button type="button" id="pfive" onclick="addPoints(5,2)">+5</button>
     <button type="button" id="pfive" onclick="addPoints(10,2)">+10</button>
     <button type="button" id="pfive" onclick="addPoints(-10,2)">-10</button>
@@ -51,7 +52,7 @@
         ctx.fillText(ptsThun, canvas.height * (1 / 4), canvas.width * (1 / 5));
         ctx.fillText("Wampus", (canvas.height * (2 / 4)) - 50, (canvas.width * (1 / 5)) - 25);
         ctx.fillText(ptsWam, canvas.height * (2 / 4), canvas.width * (1 / 5));
-        ctx.fillText("Pukwick", (canvas.height * (3 / 4)) - 55, (canvas.width * (1 / 5)) - 25);
+        ctx.fillText("Pukwidge", (canvas.height * (3 / 4)) - 55, (canvas.width * (1 / 5)) - 25);
         ctx.fillText(ptsPuk, canvas.height * (3 / 4), canvas.width * (1 / 5));
         ctx.fillText("Horned Serpent", (canvas.height * (4 / 4)) - 60, (canvas.width * (1 / 5)) - 25);
         ctx.fillText(ptsHor, canvas.height * (4 / 4), canvas.width * (1 / 5));
@@ -113,39 +114,46 @@
     var intervalId = setInterval(function () {
         var rng = Math.floor(Math.random() * 4);
         var blussi = Math.random();
-        if (checkdiv(rng)) {
-            switch (rng) {
-                case 0:
-                    if (blussi > 0.25) {
-                        ptsThun += Math.floor((rngBetaDistr() * 10));
-                    } else {
-                        ptsThun -= Math.floor((rngBetaDistr() * 10));
-                    }
-                    break;
-                case 1: if (blussi > 0.25) {
-                    ptsWam += Math.floor((rngBetaDistr() * 10));
+        // if (checkdiv(rng)) {
+        switch (rng) {
+            case 0:
+                if (blussi > 0.25) {
+                    ptsThun += Math.floor((rngBetaDistr() * 10));
                 } else {
-                    ptsWam -= Math.floor((rngBetaDistr() * 10));
+                    ptsThun -= Math.floor((rngBetaDistr() * 10));
                 }
-                    break;
-                case 2: if (blussi > 0.25) {
-                    ptsHor += Math.floor((rngBetaDistr() * 10));
-                } else {
-                    ptsHor -= Math.floor((rngBetaDistr() * 10));
-                }
-                    break;
-                case 3: if (blussi > 0.25) {
-                    ptsPuk += Math.floor((rngBetaDistr() * 10));
-                } else {
-                    ptsPuk -= Math.floor((rngBetaDistr() * 10));
-                }
-                    break;
-                default:
+                break;
+            case 1: if (blussi > 0.25) {
+                ptsWam += Math.floor((rngBetaDistr() * 10));
+            } else {
+                ptsWam -= Math.floor((rngBetaDistr() * 10));
             }
+                break;
+            case 2: if (blussi > 0.25) {
+                ptsHor += Math.floor((rngBetaDistr() * 10));
+            } else {
+                ptsHor -= Math.floor((rngBetaDistr() * 10));
+            }
+                break;
+            case 3: if (blussi > 0.25) {
+                ptsPuk += Math.floor((rngBetaDistr() * 10));
+            } else {
+                ptsPuk -= Math.floor((rngBetaDistr() * 10));
+            }
+                break;
+            default:
         }
+        // }
 
         draw();
+        checkPoints();
     }, 50);
+
+    function checkPoints() {
+        if ((ptsHor || ptsPuk || ptsThun || ptsWam) == 288) {
+
+        }
+    }
 </script>
 
 </html>

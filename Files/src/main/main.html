@@ -2,22 +2,158 @@
 <html>
 
 <head>
+
     <title>Points</title>
 </head>
 
 <body>
+    <audio src="Files/src/sound/288.ogg"></audio>
     <p>Points</p>
+    <canvas id="myCanvas" width="1200" height="800" style="border:1px solid #ca2c2c;">        
+    </canvas>
+    <br>
+    Thunderbird:
+    <button type="button" id="pfive" onclick="addPoints(5,0)">+5</button>
+    <button type="button" id="pfive" onclick="addPoints(10,0)">+10</button>
+    <button type="button" id="pfive" onclick="addPoints(-10,0)">-10</button>
+    <button type="button" id="pfive" onclick="addPoints(-5,0)">-5</button>
+    <br>
+    Wampus:
+    <button type="button" id="pfive" onclick="addPoints(5,1)">+5</button>
+    <button type="button" id="pfive" onclick="addPoints(10,1)">+10</button>
+    <button type="button" id="pfive" onclick="addPoints(-10,1)">-10</button>
+    <button type="button" id="pfive" onclick="addPoints(-5,1)">-5</button>
+    <br>
+    Pukwidge:
+    <button type="button" id="pfive" onclick="addPoints(5,2)">+5</button>
+    <button type="button" id="pfive" onclick="addPoints(10,2)">+10</button>
+    <button type="button" id="pfive" onclick="addPoints(-10,2)">-10</button>
+    <button type="button" id="pfive" onclick="addPoints(-5,2)">-5</button>
+    <br>
+    Horned Serpent:
+    <button type="button" id="pfive" onclick="addPoints(5,3)">+5</button>
+    <button type="button" id="pfive" onclick="addPoints(10,3)">+10</button>
+    <button type="button" id="pfive" onclick="addPoints(-10,3)">-10</button>
+    <button type="button" id="pfive" onclick="addPoints(-5,3)">-5</button>
 </body>
 <script>
+    var ptsThun = 0;
+    var ptsWam = 0;
+    var ptsPuk = 0;
+    var ptsHor = 0;
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    window.onload = draw();
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.font = "30px Comic Sans";
+        ctx.fillText("Thunderbird", (canvas.height * (1 / 4)) - 70, (canvas.width * (1 / 5)) - 25);
+        ctx.fillText(ptsThun, canvas.height * (1 / 4), canvas.width * (1 / 5));
+        ctx.fillText("Wampus", (canvas.height * (2 / 4)) - 50, (canvas.width * (1 / 5)) - 25);
+        ctx.fillText(ptsWam, canvas.height * (2 / 4), canvas.width * (1 / 5));
+        ctx.fillText("Pukwidge", (canvas.height * (3 / 4)) - 55, (canvas.width * (1 / 5)) - 25);
+        ctx.fillText(ptsPuk, canvas.height * (3 / 4), canvas.width * (1 / 5));
+        ctx.fillText("Horned Serpent", (canvas.height * (4 / 4)) - 60, (canvas.width * (1 / 5)) - 25);
+        ctx.fillText(ptsHor, canvas.height * (4 / 4), canvas.width * (1 / 5));
+    }
+
+    function addPoints(pts, house) {
+        switch (house) {
+            case 0:
+                ptsThun += pts;
+                break;
+            case 1:
+                ptsWam += pts;
+                break;
+            case 2:
+                ptsPuk += pts;
+                break;
+            case 3:
+                ptsHor += pts;
+                break;
+        }
+        draw();
+    }
+
     function rngBetaDistr() {
-        for (var i  = 0;i<1000;i++) {
-            var unif = Math.random();//uniform distribution
-            var beta = Math.pow(Math.sin(unif * Math.PI / 2),2);
-            beta_left = (beta < 0.5) ? 2 * beta : 2 * (1 - beta);//skewing beta towards leftside
-            console.log(beta_left);
+        var unif = Math.random();//uniform distribution
+        var beta = Math.pow(Math.sin(unif * Math.PI / 2), 2);
+        beta_left = (beta < 0.5) ? 2 * beta : 2 * (1 - beta);//skewing beta towards leftside
+        //console.log(beta_left);
+        return beta_left;
+    }
+
+    function checkdiv(house) {
+        switch (house) {
+            case 0:
+                if ((ptsThun >= ptsHor + 100 || ptsThun >= ptsPuk + 100 || ptsThun >= ptsWam + 100)) {
+                    console.log("thun big");
+                    return false;
+                }
+                break;
+            case 1: if ((ptsWam >= ptsHor + 100 || ptsWam >= ptsPuk + 100 || ptsWam >= ptsThun + 100)) {
+                console.log("wam big");
+                return false;
+            }
+                break;
+            case 2: if ((ptsPuk >= ptsHor + 100 || ptsPuk >= ptsThun + 100 || ptsPuk >= ptsWam + 100)) {
+                console.log("puk big");
+                return false;
+            }
+                break;
+            case 3: if ((ptsHor >= ptsThun + 100 || ptsHor >= ptsPuk + 100 || ptsHor >= ptsWam + 100)) {
+                console.log("hor big");
+                return false;
+            }
+                break;
+        }
+        return true;
+    }
+
+    var intervalId = setInterval(function () {
+        var rng = Math.floor(Math.random() * 4);
+        var blussi = Math.random();
+        // if (checkdiv(rng)) {
+        switch (rng) {
+            case 0:
+                if (blussi > 0.25) {
+                    ptsThun += Math.floor((rngBetaDistr() * 10));
+                } else {
+                    ptsThun -= Math.floor((rngBetaDistr() * 10));
+                }
+                break;
+            case 1: if (blussi > 0.25) {
+                ptsWam += Math.floor((rngBetaDistr() * 10));
+            } else {
+                ptsWam -= Math.floor((rngBetaDistr() * 10));
+            }
+                break;
+            case 2: if (blussi > 0.25) {
+                ptsHor += Math.floor((rngBetaDistr() * 10));
+            } else {
+                ptsHor -= Math.floor((rngBetaDistr() * 10));
+            }
+                break;
+            case 3: if (blussi > 0.25) {
+                ptsPuk += Math.floor((rngBetaDistr() * 10));
+            } else {
+                ptsPuk -= Math.floor((rngBetaDistr() * 10));
+            }
+                break;
+            default:
+        }
+        // }
+
+        draw();
+        checkPoints();
+    }, 50);
+
+    function checkPoints() {
+        if ((ptsHor || ptsPuk || ptsThun || ptsWam) == 288) {
+
         }
     }
-    window.onload = rngBetaDistr
 </script>
 
 </html>

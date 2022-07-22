@@ -13,6 +13,9 @@
     <audio id="fatal">
         <source src="fatal.ogg" type="audio/ogg">
     </audio>
+    <audio id="lacher">
+        <source src="lacher.ogg" type="audio/ogg">
+    </audio>
     <p>Points</p>
     <canvas id="myCanvas" width="1200" height="800" style="border:1px solid #ca2c2c;">
     </canvas>
@@ -70,7 +73,10 @@
             if(rng>= 0.95){
             document.getElementById("fatal").play();}
         }
-
+if(house != 0 && pts <= 0){
+    if(rng>= 0.5){
+            document.getElementById("lacher").play();}
+}
 
         switch (house) {
             case 0:

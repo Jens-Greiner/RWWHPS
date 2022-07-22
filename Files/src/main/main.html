@@ -64,13 +64,14 @@
     }
 
     function addPoints(pts, house) {
-        if (pts == -10) {
-            if (Math.random >= 0.1) {
-                document.getElementById("fatal").play();
-            }
 
-
+        if (pts == -10) {            
+            var rng = Math.random();
+            if(rng>= 0.95){
+            document.getElementById("fatal").play();}
         }
+
+
         switch (house) {
             case 0:
                 ptsThun += pts;
